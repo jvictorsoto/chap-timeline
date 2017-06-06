@@ -1,0 +1,22 @@
+{
+  "name": "chap-timeline",
+  "version": "2.9.1",
+  "description": "Webpack compatible version of chap-timeline",
+  "main": "timeline.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvictorsoto/chap-timeline.git"
+  },
+  "keywords": [
+    "chap-timeline"
+  ],
+  "author": "Jos de Jong",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jvictorsoto/chap-timeline/issues"
+  },
+  "homepage": "https://github.com/jvictorsoto/chap-timeline#readme"
+}
