@@ -338,6 +338,11 @@ links.Timeline.prototype.setOptions = function(options) {
             }
         }
 
+        // New Lateral margin option
+        if (options.eventMarginLateral == undefined) {
+            this.options.eventMarginLateral = this.options.eventMargin;
+        }
+
         // check for deprecated options
         if (options.showButtonAdd != undefined) {
             this.options.showButtonNew = options.showButtonAdd;
@@ -5527,6 +5532,7 @@ links.Timeline.prototype.stackMoveToFinal = function(currentItems, finalItems) {
 links.Timeline.prototype.stackItemsCheckOverlap = function(items, itemIndex,
                                                            itemStart, itemEnd) {
     var eventMargin = this.options.eventMargin,
+        eventMarginLateral = this.options.eventMarginLateral,
         collision = this.collision;
 
     // we loop from end to start, as we suppose that the chance of a
@@ -5534,7 +5540,7 @@ links.Timeline.prototype.stackItemsCheckOverlap = function(items, itemIndex,
     var item1 = items[itemIndex];
     for (var i = itemEnd; i >= itemStart; i--) {
         var item2 = items[i];
-        if (collision(item1, item2, eventMargin)) {
+        if (collision(item1, item2, eventMargin, eventMarginLateral)) {
             if (i != itemIndex) {
                 return item2;
             }
@@ -5556,15 +5562,19 @@ links.Timeline.prototype.stackItemsCheckOverlap = function(items, itemIndex,
  *                              the requested margin.
  * @return {boolean}            true if item1 and item2 collide, else false
  */
-links.Timeline.prototype.collision = function(item1, item2, margin) {
+links.Timeline.prototype.collision = function(item1, item2, margin, marginLateral) {
     // set margin if not specified
     if (margin == undefined) {
         margin = 0;
     }
 
+    if (marginLateral == undefined) {
+        marginLateral = 0;
+    }
+
     // calculate if there is overlap (collision)
-    return (item1.left - margin < item2.right &&
-        item1.right + margin > item2.left &&
+    return (item1.left - marginLateral < item2.right &&
+        item1.right + marginLateral > item2.left &&
         item1.top - margin < item2.bottom &&
         item1.bottom + margin > item2.top);
 };
