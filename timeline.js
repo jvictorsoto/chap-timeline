@@ -462,7 +462,8 @@ links.Timeline.prototype.setData = function(data) {
                 'group':     ((cols.group != undefined)     ? data.getValue(row, cols.group)     : undefined),
                 'className': ((cols.className != undefined) ? data.getValue(row, cols.className) : undefined),
                 'editable':  ((cols.editable != undefined)  ? data.getValue(row, cols.editable)  : undefined),
-                'type':      ((cols.type != undefined)      ? data.getValue(row, cols.type)      : undefined)
+                'type':      ((cols.type != undefined)      ? data.getValue(row, cols.type)      : undefined),
+                'id':        ((cols.id != undefined)        ? data.getValue(row, cols.id)        : undefined),
             }));
         }
     }
@@ -3562,6 +3563,7 @@ links.Timeline.Item = function (data, options) {
         this.editable = data.editable;
         this.group = data.group;
         this.type = data.type;
+        this.id = data.id;
     }
     this.top = 0;
     this.left = 0;
@@ -4884,6 +4886,7 @@ links.Timeline.prototype.createItem = function(itemData) {
     var data = links.Timeline.clone(itemData);
     data.type = type;
     data.group = this.getGroup(itemData.group);
+    data.id = itemData.id;
     // TODO: optimize this, when creating an item, all data is copied twice...
 
     // TODO: is initialTop needed?
@@ -5139,6 +5142,9 @@ links.Timeline.prototype.selectItem = function(index) {
                 item.dom.style.cursor = 'move';
             }
             item.select();
+            if(this.options.onSelect && typeof this.options.onSelect === 'function') {
+                this.options.onSelect(item);
+            }
         }
         this.repaintDeleteButton();
         this.repaintDragAreas();
