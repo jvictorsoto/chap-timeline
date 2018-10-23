@@ -4940,7 +4940,9 @@ links.Timeline.prototype.changeItem = function (index, itemData, preventRender) 
         'group':   itemData.hasOwnProperty('group') ?   itemData.group :   this.getGroupName(oldItem.group),
         'className': itemData.hasOwnProperty('className') ? itemData.className : oldItem.className,
         'editable':  itemData.hasOwnProperty('editable') ?  itemData.editable :  oldItem.editable,
-        'type':      itemData.hasOwnProperty('type') ?      itemData.type :      oldItem.type
+        'type':      itemData.hasOwnProperty('type') ?      itemData.type :      oldItem.type,
+        'id':      itemData.hasOwnProperty('id') ?      itemData.id :      oldItem.id,
+        'style':      itemData.hasOwnProperty('style') ?      itemData.style :      oldItem.style
     });
     this.items[index] = newItem;
 
