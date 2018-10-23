@@ -464,6 +464,7 @@ links.Timeline.prototype.setData = function(data) {
                 'editable':  ((cols.editable != undefined)  ? data.getValue(row, cols.editable)  : undefined),
                 'type':      ((cols.type != undefined)      ? data.getValue(row, cols.type)      : undefined),
                 'id':        ((cols.id != undefined)        ? data.getValue(row, cols.id)        : undefined),
+                'style':        ((cols.style != undefined)        ? data.getValue(row, cols.style)        : undefined),
             }));
         }
     }
@@ -3564,6 +3565,7 @@ links.Timeline.Item = function (data, options) {
         this.group = data.group;
         this.type = data.type;
         this.id = data.id;
+        this.style = data.style;
     }
     this.top = 0;
     this.left = 0;
@@ -3797,6 +3799,10 @@ links.Timeline.ItemBox.prototype.createDOM = function () {
     divBox.style.position = "absolute";
     divBox.style.left = this.left + "px";
     divBox.style.top = this.top + "px";
+
+    Object.keys(this.style || {}).forEach(prop => {
+        divBox.style[prop] = this.style[prop];
+    });
 
     // contents box (inside the background box). used for making margins
     var divContent = document.createElement("DIV");
@@ -4887,6 +4893,7 @@ links.Timeline.prototype.createItem = function(itemData) {
     data.type = type;
     data.group = this.getGroup(itemData.group);
     data.id = itemData.id;
+    data.style = itemData.style;
     // TODO: optimize this, when creating an item, all data is copied twice...
 
     // TODO: is initialTop needed?
