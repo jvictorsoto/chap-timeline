@@ -194,6 +194,7 @@ links.Timeline = function(container, options) {
 
         'moveable': true,
         'zoomable': true,
+        'zoomableWithCtrl': false,
         'selectable': true,
         'unselectable': true,
         'editable': false,
@@ -3172,6 +3173,10 @@ links.Timeline.prototype.onMouseWheel = function(event) {
 
     if (!event) { /* For IE. */
         event = window.event;
+    }
+
+    if (this.options.zoomableWithCtrl && !event.ctrlKey) { 
+        return;
     }
 
     // retrieve delta
