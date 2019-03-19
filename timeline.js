@@ -5778,8 +5778,8 @@ links.Timeline.ClusterGenerator.prototype.filterData = function () {
 
     // split the items per group
     items.forEach(function (item) {
-        // put the item in the correct group
-        var groupName = item.group ? item.group.content : '';
+        // put the item in the correct group @jvictorsoto: Only cluster items with same group and content
+        var groupName = (item.group ? item.group.content : '') + item.content;
         var group = groups[groupName];
         if (!group) {
             group = [];
